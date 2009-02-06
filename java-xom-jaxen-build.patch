@@ -1,0 +1,25 @@
+--- XOM.orig/build.xml  2005-11-29 23:34:18.000000000 +0100
++++ XOM/build.xml       2009-02-07 00:11:49.000000000 +0100
+@@ -698,7 +698,7 @@
+     </jar>
+   </target>
+ 
+-  <target name="compile-jaxen" description="Compile Jaxen" depends="get-jaxen">
++  <target name="compile-jaxen" description="Compile Jaxen">
+     <javac srcdir="${build.dir}/jaxen/src/java/main"
+            destdir="${build.dir}/jaxen-classes"
+            debug="${debug}"
+@@ -727,13 +727,6 @@
+     </javac>  
+   </target>
+   
+-  <target name="get-jaxen" description="Download Jaxen source code" depends="prepare">
+-      <cvs cvsRoot=":pserver:anonymous@cvs.jaxen.codehaus.org:/home/projects/jaxen/scm"
+-       package="jaxen"
+-       dest="${build.dir}"
+-  />
+-  </target>
+-
+   <target name="debug" depends="init" description="Print various Ant properties">
+     <echoproperties/>
+     <java classname="org.apache.xalan.Version" fork="yes">
