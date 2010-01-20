@@ -15,7 +15,7 @@
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	0.1
+Release:	1
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
