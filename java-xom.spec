@@ -1,8 +1,13 @@
 #
 # Conditional build:
-%bcond_without	javadoc		# don't build javadoc
+%bcond_with	javadoc		# don't build javadoc
 %bcond_without	tests		# don't build and run tests
 #
+%if "%{pld_release}" == "ti"
+%bcond_without	java_sun	# build with gcj
+%else
+%bcond_with	java_sun	# build with java-sun
+%endif
 %include	/usr/lib/rpm/macros.java
 #
 %define		srcname	xom
@@ -19,7 +24,9 @@ Source1:	http://dist.codehaus.org/jaxen/distributions/jaxen-%{jaxenver}-src.tar.
 # Source1-md5:	b598ae6b7e765a92e13667b0a80392f4
 Patch0:		%{name}-jaxen-build.patch
 URL:		http://www.cafeconleche.org/XOM/
-BuildRequires:	java-gcj-compat-devel
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
 BuildRequires:	java-xml-commons-external
@@ -75,7 +82,6 @@ mv jaxen-%{jaxenver} jaxen
 cd ..
 
 cat > build.properties << EOF
-build.compiler=gcj
 xml-apis.jar=$(find-jar xml-apis)
 parser.jar=$(find-jar xerces-j2)
 serializer.jar=$(find-jar serializer)
@@ -87,9 +93,11 @@ EOF
 rm -rf lib
 
 %build
-export SHELL=/bin/sh
 
-%ant -propertyfile build.properties minimal jar javadoc
+ANT_OPTS=-Xss64M %ant -propertyfile build.properties minimal jar
+%if %{with javadoc}
+%ant javadoc
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -103,9 +111,11 @@ cp -a build/%{srcname}-%{version}-minimal.jar $RPM_BUILD_ROOT%{_javadir}/%{srcna
 ln -s %{srcname}-minimal-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-minimal.jar
 
 # javadoc
+%if %{with javadoc}
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 cp -a build/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
 ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
+%endif
 
 # examples
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{srcname}-%{version}/nu/xom/samples/
@@ -126,7 +136,9 @@ ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 %defattr(644,root,root,755)
 %{_examplesdir}/%{srcname}-%{version}
 
+%if %{with javadoc}
 %files javadoc
 %defattr(644,root,root,755)
 %{_javadocdir}/%{srcname}-%{version}
 %ghost %{_javadocdir}/%{srcname}
+%endif
