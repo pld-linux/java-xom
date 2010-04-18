@@ -3,11 +3,6 @@
 %bcond_with	javadoc		# don't build javadoc
 %bcond_without	tests		# don't build and run tests
 #
-%if "%{pld_release}" == "ti"
-%bcond_without	java_sun	# build with gcj
-%else
-%bcond_with	java_sun	# build with java-sun
-%endif
 %include	/usr/lib/rpm/macros.java
 #
 %define		srcname	xom
@@ -24,12 +19,10 @@ Source1:	http://dist.codehaus.org/jaxen/distributions/jaxen-%{jaxenver}-src.tar.
 # Source1-md5:	b598ae6b7e765a92e13667b0a80392f4
 Patch0:		%{name}-jaxen-build.patch
 URL:		http://www.cafeconleche.org/XOM/
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
-BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
 BuildRequires:	java-xml-commons-external
+BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	junit
 BuildRequires:	rpm-javaprov
