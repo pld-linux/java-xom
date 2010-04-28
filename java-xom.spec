@@ -10,7 +10,7 @@
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	1
+Release:	2
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
@@ -19,12 +19,12 @@ Source1:	http://dist.codehaus.org/jaxen/distributions/jaxen-%{jaxenver}-src.tar.
 # Source1-md5:	b598ae6b7e765a92e13667b0a80392f4
 Patch0:		%{name}-jaxen-build.patch
 URL:		http://www.cafeconleche.org/XOM/
+BuildRequires:	java-junit
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
 BuildRequires:	java-xml-commons-external
 BuildRequires:	jdk
 BuildRequires:	jpackage-utils
-BuildRequires:	junit
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
@@ -55,7 +55,7 @@ Javadoc pour %{srcname}.
 Summary:	Examples for %{srcname}
 Summary(pl.UTF-8):	Przykłady dla pakietu %{srcname}
 Group:		Documentation
-Requires:	%{srcname} = %{epoch}:%{version}-%{release}
+Requires:	%{srcname} = %{version}-%{release}
 
 %description examples
 Demonstrations and samples for %{srcname}.
