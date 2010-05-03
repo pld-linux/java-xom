@@ -2,11 +2,10 @@
 # Conditional build:
 %bcond_with	javadoc		# don't build javadoc
 %bcond_without	tests		# don't build and run tests
-#
-%include	/usr/lib/rpm/macros.java
-#
+
 %define		srcname	xom
 %define		jaxenver 1.1.1
+%include	/usr/lib/rpm/macros.java
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
@@ -65,12 +64,11 @@ Pliki demonstracyjne i przykłady dla pakietu %{srcname}.
 
 %prep
 %setup -q -n XOM
-
 %patch0 -p1
 
 mkdir build
 cd build
-tar zxvf %SOURCE1
+tar zxf %{SOURCE1}
 mv jaxen-%{jaxenver} jaxen
 cd ..
 
@@ -122,8 +120,8 @@ ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 
 %files
 %defattr(644,root,root,755)
-%{_javadir}/*.jar
 %doc README.txt Todo.txt
+%{_javadir}/*.jar
 
 %files examples
 %defattr(644,root,root,755)
