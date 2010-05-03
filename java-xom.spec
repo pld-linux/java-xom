@@ -9,7 +9,7 @@
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	2
+Release:	3
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
@@ -54,7 +54,7 @@ Javadoc pour %{srcname}.
 Summary:	Examples for %{srcname}
 Summary(pl.UTF-8):	Przykłady dla pakietu %{srcname}
 Group:		Documentation
-Requires:	%{srcname} = %{version}-%{release}
+Requires:	java-xom = %{version}-%{release}
 
 %description examples
 Demonstrations and samples for %{srcname}.
