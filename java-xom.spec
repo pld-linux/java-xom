@@ -18,6 +18,7 @@ Source1:	http://dist.codehaus.org/jaxen/distributions/jaxen-%{jaxenver}-src.tar.
 # Source1-md5:	b598ae6b7e765a92e13667b0a80392f4
 Patch0:		%{name}-jaxen-build.patch
 URL:		http://www.cafeconleche.org/XOM/
+BuildRequires:	ant
 BuildRequires:	java-junit
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
