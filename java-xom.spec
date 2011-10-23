@@ -9,7 +9,7 @@
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	3
+Release:	4
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
@@ -37,25 +37,25 @@ that strives for correctness, simplicity, and performance, in that
 order.
 
 %package javadoc
-Summary:	Online manual for %{srcname}
-Summary(pl.UTF-8):	Dokumentacja online do %{srcname}
+Summary:	Online manual for XOM
+Summary(pl.UTF-8):	Dokumentacja online do XOM
 Group:		Documentation
 Requires:	jpackage-utils
 
 %description javadoc
-Documentation for %{srcname}.
+Documentation for XOM.
 
 %description javadoc -l pl.UTF-8
-Dokumentacja do %{srcname}.
+Dokumentacja do XOM.
 
 %description javadoc -l fr.UTF-8
-Javadoc pour %{srcname}.
+Javadoc pour XOM.
 
 %package examples
-Summary:	Examples for %{srcname}
-Summary(pl.UTF-8):	Przykłady dla pakietu %{srcname}
+Summary:	Examples for XOM
+Summary(pl.UTF-8):	Przykłady dla pakietu XOM
 Group:		Documentation
-Requires:	java-xom = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
 %description examples
 Demonstrations and samples for %{srcname}.
@@ -64,14 +64,11 @@ Demonstrations and samples for %{srcname}.
 Pliki demonstracyjne i przykłady dla pakietu %{srcname}.
 
 %prep
-%setup -q -n XOM
+%setup -q -n XOM -a1
 %patch0 -p1
 
-mkdir build
-cd build
-tar zxf %{SOURCE1}
-mv jaxen-%{jaxenver} jaxen
-cd ..
+install -d build
+mv jaxen-%{jaxenver} build/jaxen
 
 cat > build.properties << EOF
 xml-apis.jar=$(find-jar xml-apis)
@@ -81,11 +78,13 @@ xslt.jar=$(find-jar xalan.jar)
 junit.jar=$(find-jar junit.jar)
 EOF
 
+# do not allow empty jars
+grep '=$' build.properties && exit 1
+
 # We do not need these jars. We want to use system libs.
-rm -rf lib
+find -name '*.jar' | xargs rm -v
 
 %build
-
 ANT_OPTS=-Xss64M %ant -propertyfile build.properties minimal jar
 %if %{with javadoc}
 %ant javadoc
