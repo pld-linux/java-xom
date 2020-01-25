@@ -5,7 +5,6 @@
 
 %define		srcname	xom
 %define		jaxenver 1.1.1
-%include	/usr/lib/rpm/macros.java
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
