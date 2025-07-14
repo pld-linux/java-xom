@@ -64,7 +64,7 @@ Pliki demonstracyjne i przykłady dla pakietu %{srcname}.
 
 %prep
 %setup -q -n XOM -a1
-%patch0 -p1
+%patch -P0 -p1
 
 install -d build
 mv jaxen-%{jaxenver} build/jaxen
