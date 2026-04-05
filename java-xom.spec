@@ -10,7 +10,7 @@
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	5
+Release:	6
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
@@ -74,7 +74,7 @@ mv jaxen-%{jaxenver} build/jaxen
 cat > build.properties << EOF
 xml-apis.jar=$(find-jar xml-apis)
 parser.jar=$(find-jar xerces-j2)
-serializer.jar=$(find-jar serializer)
+serializer.jar=$(find-jar xalan-serializer)
 xslt.jar=$(find-jar xalan.jar)
 junit.jar=$(find-jar junit.jar)
 EOF
