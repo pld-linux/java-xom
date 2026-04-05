@@ -3,12 +3,14 @@
 %bcond_with	javadoc		# don't build javadoc
 %bcond_without	tests		# don't build and run tests
 
+%{?use_default_jdk:%use_default_jdk 8}
+
 %define		srcname	xom
 %define		jaxenver 1.1.1
 Summary:	Yet another API for processing XML
 Name:		java-xom
 Version:	1.1
-Release:	4
+Release:	5
 License:	LGPL v2.1, BSD-like
 Group:		Libraries/Java
 Source0:	http://www.cafeconleche.org/XOM/xom-%{version}-src.tar.gz
@@ -22,10 +24,10 @@ BuildRequires:	java-junit
 BuildRequires:	java-xalan
 BuildRequires:	java-xerces
 BuildRequires:	java-xml-commons-external
-BuildRequires:	jdk
+%buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
+BuildRequires:	rpmbuild(macros) >= 1.556
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
